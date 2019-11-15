@@ -7,23 +7,22 @@ RUN sed -i "s@http://deb.debian.org@http://mirrors.huaweicloud.com@g" /etc/apt/s
         && apt-get update \
         && apt-get install -y --no-install-recommends redis-server
 
-
 RUN mkdir /data && chown redis:redis /data
-
-#RUN ["/bin/bash", "-c", "sudo redis-server /etc/redis/redis.conf"]
-
 VOLUME /data
-WORKDIR /
+WORKDIR /data
+
+COPY docker-entrypoint.sh /usr/local/bin/
+#ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 6379
-#ENTRYPOINT [ "redis-server","etc/redis/redis.conf"]
-CMD []
+CMD ["redis-server"]
 
 #https://registry.docker-cn.com/
 #docker build  -t redis:v1 .
 #docker run -p 6378:6379 -d redis:v1 redis-server --appendonly yes
 #docker stop $(docker ps -a -q)
 #docker rm $(docker ps -a -q)
+#docker rmi $(docker images -f "dangling=true" -q)
 #docker ps -a
 #docker exec -it  2797f743d83d /bin/bash
 #docker run -i -t -d redis:v1 /bin/bash
