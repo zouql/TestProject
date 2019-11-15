@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WebAPI测试</title>
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+<body>
+    <form class="col-md-12 container">
+        <div class="row">
+            <br />
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 text-right"><button class="btn btn-success" type="button" data-value="123" onclick="GetTest(this)" >Get测试</button></div>
+            <div class="col-md-6 text-left"><button class="btn btn-success" type="button" data-value="123" onclick="PostTest(this)" >Post测试</button></div>
+        </div>
+
+        <script>
+            function GetTest(obj) {
+                let val = $(obj).data("value");
+
+                $.ajax({
+                    type:"GET",
+                    url: "api/Test/TestGet",
+                    data: { "value": val },
+                    success: function (data) {
+                        alert(`Get返回结果：${data}`);
+                    }
+                });
+            }
+
+            function PostTest(obj) {
+                let val = $(obj).data("value");
+
+                $.ajax({
+                    type:"POST",
+                    url: "api/Test/TestPost",
+                    data: { "Value": val },
+                    success: function (data) {
+                        alert(`Post返回结果：${data}`);
+                    }
+                });
+            }
+        </script>
+    </form>
+</body>
+</html>
