@@ -7,12 +7,16 @@ RUN sed -i "s@http://deb.debian.org@http://mirrors.huaweicloud.com@g" /etc/apt/s
         && apt-get update \
         && apt-get install -y --no-install-recommends redis-server
 
+
 RUN mkdir /data && chown redis:redis /data
+
+#RUN ["/bin/bash", "-c", "sudo redis-server /etc/redis/redis.conf"]
+
 VOLUME /data
 WORKDIR /
 
 EXPOSE 6379
-ENTRYPOINT [ "redis-server" ]
+#ENTRYPOINT [ "redis-server","etc/redis/redis.conf"]
 CMD []
 
 #https://registry.docker-cn.com/
@@ -22,9 +26,8 @@ CMD []
 #docker rm $(docker ps -a -q)
 #docker ps -a
 #docker exec -it  2797f743d83d /bin/bash
-#docker run -i -t -d redis:v1
+#docker run -i -t -d redis:v1 /bin/bash
 
-#
 #
 #FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 #WORKDIR /src
