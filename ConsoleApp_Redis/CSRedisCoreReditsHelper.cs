@@ -25,17 +25,19 @@
                 client.Del("Test1");
             }
 
-            client.SAdd("Test1", Guid.NewGuid());
+            client.SAdd("Test11", Guid.NewGuid());
 
-            client.SAdd("Test1", Guid.NewGuid());
+            client.SAdd("Test12", Guid.NewGuid());
 
-            client.SAdd("Test1", Guid.NewGuid());
+            client.SAdd("Test13", Guid.NewGuid());
 
-            client.SAdd("Test1", Guid.Empty);
+            client.SAdd("Test14", Guid.Empty);
 
-            client.SAdd("Test1", Guid.Empty);
+            client.SRem("Test15", Guid.Empty);
 
-            client.SRem("Test1", Guid.Empty);
+            client.SAdd("test16", new[] { Guid.NewGuid() });
+
+            var value = client.SMembers<Guid>("test16");
 
             client.Dispose();
         }

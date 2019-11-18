@@ -1,4 +1,4 @@
-﻿#FROM ubuntu:14.04
+#FROM ubuntu:14.04
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -8,10 +8,10 @@ RUN sed -i "s@http://deb.debian.org@http://mirrors.huaweicloud.com@g" /etc/apt/s
         && apt-get install -y --no-install-recommends redis-server
 
 RUN mkdir /data && chown redis:redis /data
-#VOLUME /data
-WORKDIR /app
+VOLUME /data
+WORKDIR /data
 
-COPY ["docker-entrypoint.sh", "/usr/local/bin/"]
+COPY ConsoleApp_Redis/docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 6379
